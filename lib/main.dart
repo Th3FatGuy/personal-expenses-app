@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expenses_app/widget/new_transaction.dart';
 
-import './transaction.dart'; //create a transaction file with the constructor of transaction
+import './widget/user_transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,60 +13,40 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
-}
+} //creating app title
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transaction = [
-    Transaction(
-      id: '16035',
-      title: 'New Lenovo tab',
-      amount: 3000000,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '16036',
-      title: 'New Keyboard',
-      amount: 120000,
-      date: DateTime.now(),
-    )
-  ];
+  // late String titleInput;
+  // late String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  //creating fake date for the app
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Flutter App'),
+      ), //app title
+      body:
+          //SingleChildScrollView(
+          //let the all page scrollable, it need to know the height so it can scroll on that.
+          Column(
+        //create body page
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: Card(
+              color: Colors.blue,
+              child: Text('Chart'),
+              elevation: 5,
+            ),
+          ),
+          UserTransactions(),
+        ],
       ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('Chart'),
-                elevation: 5,
-              ),
-            ),
-            Column(
-              children: transaction.map((tx) {
-                return Card(
-                  child: Row(children: [
-                    //create a row that to display the amount
-                    Container(
-                      child: Text(tx.amount.toString()),
-                    ),
-                    Column(
-                      children: [
-                        Text(tx.title),
-                        Text(tx.date.toString()),
-                      ],
-                    )
-                  ]),
-                );
-              }).toList(),
-            ),
-          ]),
+      //),
     );
   }
 }
